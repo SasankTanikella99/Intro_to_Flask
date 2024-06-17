@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <title>Todo List App</title>
+</head>
+<body>
+    <h1>Todo List App</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Added</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if tasks|length < 1 %}
+                <tr>
+                    <td colspan="3">No tasks found. Create a new task below.</td>
+                </tr>
+            {% else %}
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.content }}</td>
+                        <td>{{ task.created.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            <a href="/delete/{{task.id}}">Delete</a>
+                            <br />
+                            <a href="/update/{{task.id}}">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <form action="/" method="post">
+        <label for="content">Enter a task:</label>
+        <input type="text" id="content" name="content" required>
+        <button type="submit">Add Task</button>
+    </form>
+</body>
+</html>
